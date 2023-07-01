@@ -1,0 +1,160 @@
+# _     _            _        _          _____
+#| |__ | | __ _  ___| | _____| | ___   _|___ /
+#| '_ \| |/ _` |/ __| |/ / __| |/ / | | | |_ \
+#| |_) | | (_| | (__|   <\__ \   <| |_| |___) |
+#|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
+#                                  |___/
+
+#Maintainer: blacksky3 <https://github.com/blacksky3>
+
+major=5.5
+minor1=50500
+minor2=1581431
+ubuntu_ver=22.04
+repo_folder_ver=5.5
+llvm_ver=15.0
+
+pkgbase=llvm-amdgpu
+pkgname=(llvm-amdgpu lib32-llvm-amdgpu)
+pkgver=${major}
+pkgrel=1
+arch=(x86_64)
+url='https://repo.radeon.com/amdgpu'
+license=(MIT)
+source=(https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/libllvm${llvm_ver}.${minor1}-amdgpu_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/libllvm${llvm_ver}.${minor1}-amdgpu_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-${llvm_ver}.${minor1}-dev_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-${llvm_ver}.${minor1}-dev_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-${llvm_ver}.${minor1}-runtime_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-${llvm_ver}.${minor1}-runtime_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-${llvm_ver}.${minor1}_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-${llvm_ver}.${minor1}_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-dev_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-dev_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-runtime_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-runtime_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb)
+
+extract_deb(){
+  local tmpdir="$(basename "${1%.deb}")"
+  rm -Rf "$tmpdir"
+  mkdir "$tmpdir"
+  cd "$tmpdir"
+  ar x "$1"
+  tar -C "${pkgdir}" -xf data.tar.xz
+}
+
+move_libdir(){
+  local deb_libdir="$1"
+  local arch_libdir="$2"
+
+  if [ -d "${pkgdir}/${deb_libdir}" ]; then
+    if [ ! -d "${pkgdir}/${arch_libdir}" ]; then
+      mkdir -p "${pkgdir}/${arch_libdir}"
+    fi
+    mv -t "${pkgdir}/${arch_libdir}/" "${pkgdir}/${deb_libdir}"/*
+    find ${pkgdir} -type d -empty -delete
+  fi
+}
+
+move_copyright(){
+  find ${pkgdir}/usr/share/doc -name "changelog.Debian.gz" -delete
+  mkdir -p ${pkgdir}/usr/share/licenses/${pkgname}
+  find ${pkgdir}/usr/share/doc -name "copyright" -exec mv {} ${pkgdir}/usr/share/licenses/${pkgname} \;
+  find ${pkgdir}/usr/share/doc -type d -empty -delete
+}
+
+package_llvm-amdgpu(){
+  pkgdesc='AMDGPU LLVM'
+  arch=(x86_64)
+
+  extract_deb "${srcdir}"/libllvm${llvm_ver}.${minor1}-amdgpu_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-${llvm_ver}.${minor1}-dev_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-${llvm_ver}.${minor1}-runtime_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-${llvm_ver}.${minor1}_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-dev_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-runtime_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/llvm-amdgpu_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  move_libdir "opt/amdgpu/lib/x86_64-linux-gnu/" "opt/amdgpu/lib"
+  move_copyright
+
+  rm -rf "$pkgdir"/opt/amdgpu/bin
+  rm -rf "$pkgdir"/opt/amdgpu/include
+  rm -rf "$pkgdir"/opt/amdgpu/lib/cmake
+  rm -rf "$pkgdir"/opt/amdgpu/lib/*.so*
+  move_libdir "opt/amdgpu/lib/llvm-15.0/bin" "opt/amdgpu/bin"
+  move_libdir "opt/amdgpu/lib/llvm-15.0/include" "opt/amdgpu/include"
+  move_libdir "opt/amdgpu/lib/llvm-15.0/share" "opt/amdgpu/share"
+  move_libdir "opt/amdgpu/lib/llvm-15.0/lib" "opt/amdgpu/lib"
+
+  mv "$pkgdir"/usr/share/binfmts/llvm-amdgpu-15.0.50500-runtime.binfmt "$pkgdir"/usr/share/binfmts/llvm-amdgpu-15.0.50500-runtime.binfmt-x86_64
+}
+
+package_lib32-llvm-amdgpu(){
+  pkgdesc='AMDGPU LLVM (32-bit)'
+  arch=(i686 x86_64)
+  depends=(llvm-amdgpu=${major})
+
+  extract_deb "${srcdir}"/libllvm${llvm_ver}.${minor1}-amdgpu_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-${llvm_ver}.${minor1}-dev_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-${llvm_ver}.${minor1}-runtime_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-${llvm_ver}.${minor1}_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-dev_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/llvm-amdgpu-runtime_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/llvm-amdgpu_${llvm_ver}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  move_libdir "opt/amdgpu/lib/i386-linux-gnu" "opt/amdgpu/lib32"
+  move_copyright
+
+  rm -rf "$pkgdir"/opt/amdgpu/bin
+  rm -rf "$pkgdir"/opt/amdgpu/include
+  rm -rf "$pkgdir"/opt/amdgpu/lib/cmake
+  rm -rf "$pkgdir"/opt/amdgpu/lib/*.so*
+  rm -rf "$pkgdir"/opt/amdgpu/lib32/llvm-15.0/bin
+  rm -rf "$pkgdir"/opt/amdgpu/lib32/llvm-15.0/include
+  rm -rf "$pkgdir"/opt/amdgpu/lib32/llvm-15.0/share
+  move_libdir "opt/amdgpu/lib32/llvm-15.0/lib" "opt/amdgpu/lib32"
+#  move_libdir "opt/amdgpu/lib32/llvm-15.0/bin" "opt/amdgpu/bin"
+
+  mv "$pkgdir"/usr/share/binfmts/llvm-amdgpu-15.0.50500-runtime.binfmt "$pkgdir"/usr/share/binfmts/llvm-amdgpu-15.0.50500-runtime.binfmt-i386
+  sed -i 's|lli|lli32|' "$pkgdir"/usr/share/binfmts/llvm-amdgpu-15.0.50500-runtime.binfmt-i386
+
+#  rm -rf "$pkgdir"/opt/amdgpu/bin/llvm-addr2line
+#  ln -s /opt/amdgpu/bin/llvm-symbolizer32 "$pkgdir"/opt/amdgpu/bin/llvm-addr2line
+#  rm -rf "$pkgdir"/opt/amdgpu/bin/llvm-bitcode-strip
+#  ln -s /opt/amdgpu/bin/llvm-objcopy32 "$pkgdir"/opt/amdgpu/bin/llvm-bitcode-strip
+#  rm -rf "$pkgdir"/opt/amdgpu/bin/llvm-dlltool
+#  ln -s /opt/amdgpu/bin/llvm-ar32 "$pkgdir"/opt/amdgpu/bin/llvm-dlltool
+#  rm -rf "$pkgdir"/opt/amdgpu/bin/llvm-install-name-tool
+#  ln -s /opt/amdgpu/bin/llvm-objcopy32 "$pkgdir"/opt/amdgpu/bin/llvm-install-name-tool
+#  rm -rf "$pkgdir"/opt/amdgpu/bin/llvm-lib
+#  ln -s /opt/amdgpu/bin/llvm-ar32 "$pkgdir"/opt/amdgpu/bin/llvm-lib
+#  rm -rf "$pkgdir"/opt/amdgpu/bin/llvm-ranlib
+#  ln -s /opt/amdgpu/bin/llvm-ar32 "$pkgdir"/opt/amdgpu/bin/llvm-ranlib
+#  rm -rf "$pkgdir"/opt/amdgpu/bin/llvm-readelf
+#  ln -s /opt/amdgpu/bin/llvm-readobj32 "$pkgdir"/opt/amdgpu/bin/llvm-readelf
+#  rm -rf "$pkgdir"/opt/amdgpu/bin/llvm-strip
+#  ln -s /opt/amdgpu/bin/llvm-objcopy32 "$pkgdir"/opt/amdgpu/bin/llvm-strip
+#  rm -rf "$pkgdir"/opt/amdgpu/bin/llvm-windres
+#  ln -s /opt/amdgpu/bin/llvm-rc32 "$pkgdir"/opt/amdgpu/bin/llvm-windres
+#
+#  # append 32 at the end of binary files
+#  for i in "${pkgdir}/opt/amdgpu/bin/"*; do
+#    mv "$i" "$i"32
+#  done
+}
+
+sha256sums=('7244abb1fd70be96ef1bd6a18f5af707f96c8818f920ecb45952131809dfec05'
+            'ef949ef6e36a32e51cee451ebb4b8cc0484cd80d058c984286bb636b417f8834'
+            '1ab0b092a49646edae824d4472ddc71358689d4df71621acf12f61cbc50ea354'
+            '76d47d6bdb30338e7be76a33e314030cff4b617e0a3e54355cebc873c14970e0'
+            '05a0f68a4f2beea7d22321a2c8491d15fc845d622bda14eef7b9ddc9b1f9f745'
+            '4dc65c320baa60d66658f986ad789dabdbf82137a77d48ab08c3040892b632f9'
+            'f91298d05d59f8f2476b1a1b89e99d801bc8f426ced3fbb15c68c3d7d0e3b0c5'
+            'f31b98534da9287120ade056d243f19bb4a343f8eb46b0e9772f2c263c0346d4'
+            'cedb9784321b82ed152732f47c8408c61ec53e3c8bf92954f35bba7f3ef76d29'
+            'dbcc3380c2b4185ca140bfc51372f0dfddcbd918406c5515c9c7fd170619e332'
+            'f0f0c47c796e86f361bafe764df21c78e6b33bf4fec11290f960aafb71a794c8'
+            'fe208556d5458670a8b41ff9a563fa2f4e253380d96e467d042c0eab0882f6fe'
+            '0eb15233d5e8901ba27a66242d368982533b80b11924634a105de5c8675fc947'
+            'c10804c074458961d64e4a6340963efc1fe564d6715dd320764eafbac5d6e19c')

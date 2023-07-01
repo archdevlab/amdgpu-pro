@@ -1,0 +1,134 @@
+# _     _            _        _          _____
+#| |__ | | __ _  ___| | _____| | ___   _|___ /
+#| '_ \| |/ _` |/ __| |/ / __| |/ / | | | |_ \
+#| |_) | | (_| | (__|   <\__ \   <| |_| |___) |
+#|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
+#                                  |___/
+
+#Maintainer: blacksky3 <https://github.com/blacksky3>
+
+major=5.5
+libdrm_major=2.4.114
+minor1=50500
+minor2=1581431
+ubuntu_ver=22.04
+repo_folder_ver=5.5
+
+pkgbase=libdrm-amdgpu
+pkgname=(libdrm-amdgpu lib32-libdrm-amdgpu)
+pkgver=${major}
+pkgrel=1
+arch=(x86_64)
+url='https://repo.radeon.com/amdgpu'
+license=(MIT)
+source=(https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-amdgpu1_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-amdgpu1_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-dev_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-dev_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-radeon1_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-radeon1_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-utils_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-utils_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm2-amdgpu_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm2-amdgpu_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/main/libd/libdrm-amdgpu-common/libdrm-amdgpu-common_1.0.0.${minor1}-${minor2}.${ubuntu_ver}_all.deb)
+
+extract_deb(){
+  local tmpdir="$(basename "${1%.deb}")"
+  rm -Rf "$tmpdir"
+  mkdir "$tmpdir"
+  cd "$tmpdir"
+  ar x "$1"
+  tar -C "${pkgdir}" -xf data.tar.xz
+}
+
+move_libdir(){
+  local deb_libdir="$1"
+  local arch_libdir="$2"
+
+  if [ -d "${pkgdir}/${deb_libdir}" ]; then
+    if [ ! -d "${pkgdir}/${arch_libdir}" ]; then
+      mkdir -p "${pkgdir}/${arch_libdir}"
+    fi
+    mv -t "${pkgdir}/${arch_libdir}/" "${pkgdir}/${deb_libdir}"/*
+    find ${pkgdir} -type d -empty -delete
+  fi
+}
+
+move_copyright(){
+  find ${pkgdir}/usr/share/doc -name "changelog.Debian.gz" -delete
+  mkdir -p ${pkgdir}/usr/share/licenses/${pkgname}
+  find ${pkgdir}/usr/share/doc -name "copyright" -exec mv {} ${pkgdir}/usr/share/licenses/${pkgname} \;
+  find ${pkgdir}/usr/share/doc -type d -empty -delete
+}
+
+package_libdrm-amdgpu(){
+  pkgdesc='AMDGPU userspace interface to kernel DRM services'
+  arch=(x86_64)
+  depends=('libpciaccess')
+
+  extract_deb "${srcdir}"/libdrm-amdgpu-amdgpu1_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/libdrm-amdgpu-dev_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/libdrm-amdgpu-radeon1_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/libdrm-amdgpu-utils_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/libdrm2-amdgpu_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/libdrm-amdgpu-common_1.0.0.${minor1}-${minor2}.${ubuntu_ver}_all.deb
+  move_libdir "opt/amdgpu/lib/x86_64-linux-gnu" "opt/amdgpu/lib"
+  move_copyright
+
+  # Move lib/udev to usr/lib/udev
+  mv "${pkgdir}"/lib "${pkgdir}"/usr
+
+  sed -i 's|/x86_64-linux-gnu||' \
+      "$pkgdir/opt/amdgpu/lib/pkgconfig/libdrm.pc" \
+      "$pkgdir/opt/amdgpu/lib/pkgconfig/libdrm_amdgpu.pc" \
+      "$pkgdir/opt/amdgpu/lib/pkgconfig/libdrm_radeon.pc"
+
+  # Hide udev rules
+  mv "${pkgdir}"/usr/lib/udev/rules.d/91-amdgpu-pro-modeset.rules "${pkgdir}"/usr/lib/udev/rules.d/91-amdgpu-pro-modeset.rules.hide
+}
+
+package_lib32-libdrm-amdgpu(){
+  pkgdesc='AMDGPU userspace interface to kernel DRM services (32-bit)'
+  arch=(i686 x86_64)
+  depends=(lib32-libpciaccess libdrm-amdgpu=${major})
+
+  extract_deb "${srcdir}"/libdrm-amdgpu-amdgpu1_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/libdrm-amdgpu-dev_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/libdrm-amdgpu-radeon1_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/libdrm-amdgpu-utils_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/libdrm2-amdgpu_${libdrm_major}.${minor1}-${minor2}.${ubuntu_ver}_i386.deb
+  move_libdir "opt/amdgpu/lib/i386-linux-gnu" "opt/amdgpu/lib32"
+  move_copyright
+
+  # append 32 at the end of binary files
+  for i in "${pkgdir}/opt/amdgpu/bin/"*; do
+    mv "$i" "$i"32
+  done
+
+  # Remove bin dir
+  #rm -rf "${pkgdir}"/opt/amdgpu/bin
+  # Remove lib/udev
+  rm -rf "${pkgdir}"/lib
+  # Remove include dir
+  rm -rf "${pkgdir}"/opt/amdgpu/include
+  # Remove share dir
+  rm -rf "${pkgdir}"/opt/amdgpu/share
+
+  sed -i 's|/i386-linux-gnu||' \
+      "$pkgdir/opt/amdgpu/lib32/pkgconfig/libdrm.pc" \
+      "$pkgdir/opt/amdgpu/lib32/pkgconfig/libdrm_amdgpu.pc" \
+      "$pkgdir/opt/amdgpu/lib32/pkgconfig/libdrm_radeon.pc"
+}
+
+sha256sums=('d48655055ae5c3363abadd7e5ad401f4beb2341b9971821d8aecc7d9d24fb278'
+            '4afdb8ffb5b1bd7b59835d7f523f1aeaf47dc84c971901428c9eb2b3397ff338'
+            '23abe1d1cb63c1628337dd5756db27fd1c8d79edf92eac67e70fa0241beebec5'
+            'b5ad17f9fa08060b543a4a60da278edd9ca8dc3bb0e7343124cd1569ad21a971'
+            '35a3ff599cdde56d92185bdf4cd001e308a981067be73a5bc323bd5934b752a3'
+            '7cfdd7d603e01d9e3cc3c7d4643fc2bcb5ab7102cff4c8a54c8ba94103f5f881'
+            'e2c4f4d908d5a21042ce6b3707a338c92efaf338b47b750b2bc7ca1e3613ae45'
+            '86273adf09c970d28a6f2b09ec9ac4e02bb0eb8390a2e36ff6b29ee3fbaa1482'
+            'fa877c40ccac6e2370f459bb4d54317e6625b6f169bfd8ad1d9715ac117ac6e3'
+            '749be58ac373557af953bcbfaa86a4a45d574eca8d95ab8e66a05d1538881ce5'
+            '778d2f2b14add7bc86dd505e8121cc75442cfc250e6856ed4370bb4d802ddf26')
