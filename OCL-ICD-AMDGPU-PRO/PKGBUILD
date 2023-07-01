@@ -1,0 +1,104 @@
+# _     _            _        _          _____
+#| |__ | | __ _  ___| | _____| | ___   _|___ /
+#| '_ \| |/ _` |/ __| |/ / __| |/ / | | | |_ \
+#| |_) | | (_| | (__|   <\__ \   <| |_| |___) |
+#|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
+#                                  |___/
+
+#Maintainer: blacksky3 <https://github.com/blacksky3>
+
+#Upstream pages
+#https://repo.radeon.com/amdgpu
+
+major=23.10
+major_short=23.10
+minor=1595145
+ubuntu_ver=22.04
+repo_folder_ver=5.5.1
+
+pkgbase=ocl-icd-amdgpu-pro
+pkgname=(ocl-icd-amdgpu-pro lib32-ocl-icd-amdgpu-pro)
+pkgver=${major}_${minor}
+pkgrel=1
+arch=(x86_64)
+url='https://repo.radeon.com/amdgpu'
+license=(custom: multiple)
+makedepends=(wget)
+source=(https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro_${major_short}-${minor}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro_${major_short}-${minor}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro-dev_${major_short}-${minor}.${ubuntu_ver}_amd64.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro-dev_${major_short}-${minor}.${ubuntu_ver}_i386.deb)
+
+extract_deb(){
+  local tmpdir="$(basename "${1%.deb}")"
+  rm -Rf "$tmpdir"
+  mkdir "$tmpdir"
+  cd "$tmpdir"
+  ar x "$1"
+  tar -C "${pkgdir}" -xf data.tar.xz
+}
+
+move_libdir(){
+  local deb_libdir="$1"
+  local arch_libdir="$2"
+
+  if [ -d "${pkgdir}/${deb_libdir}" ]; then
+    if [ ! -d "${pkgdir}/${arch_libdir}" ]; then
+      mkdir -p "${pkgdir}/${arch_libdir}"
+    fi
+    mv -t "${pkgdir}/${arch_libdir}/" "${pkgdir}/${deb_libdir}"/*
+    find ${pkgdir} -type d -empty -delete
+  fi
+}
+
+move_copyright(){
+  find ${pkgdir}/usr/share/doc -name "changelog.Debian.gz" -delete
+  mkdir -p ${pkgdir}/usr/share/licenses/${pkgname}
+  find ${pkgdir}/usr/share/doc -name "copyright" -exec mv {} ${pkgdir}/usr/share/licenses/${pkgname} \;
+  find ${pkgdir}/usr/share/doc -type d -empty -delete
+}
+
+package_ocl-icd-amdgpu-pro(){
+  pkgdesc='AMD OpenCL ICD Loader library'
+  arch=(x86_64)
+  depends=(glibc)
+  optdepends=('opencl-driver: packaged opencl driver')
+  conflicts=(libcl ocl-icd ocl-icd-git khronos-ocl-icd-git ocl-icd-amdgpu-pro-21.20)
+  replaces=(libcl)
+  provides=(opencl-icd-loader ocl-icd ocl-icd-amdgpu-pro)
+
+  extract_deb "${srcdir}"/ocl-icd-libopencl1-amdgpu-pro_${major_short}-${minor}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/ocl-icd-libopencl1-amdgpu-pro-dev_${major_short}-${minor}.${ubuntu_ver}_amd64.deb
+  move_libdir "opt/amdgpu-pro/lib/x86_64-linux-gnu" "usr/lib"
+  move_copyright
+
+  sed -i "s#prefix=/opt/amdgpu-pro#prefix=/usr#g" "${pkgdir}"/usr/lib/pkgconfig/OpenCL.pc
+  sed -i "s#libdir=\${prefix}/lib/x86_64-linux-gnu#libdir=\${exec_prefix}/lib#g" "${pkgdir}"/usr/lib/pkgconfig/OpenCL.pc
+  sed -i "s#L/opt/amdgpu-pro/lib/x86_64-linux-gnu#L\${libdir}#g" "${pkgdir}"/usr/lib/pkgconfig/OpenCL.pc
+  sed -i "s#-I/opt/amdgpu-pro/include#-I\${includedir}#g" "${pkgdir}"/usr/lib/pkgconfig/OpenCL.pc
+}
+
+package_lib32-ocl-icd-amdgpu-pro(){
+  pkgdesc='AMD OpenCL ICD Loader library (32-bit)'
+  arch=(i686 x86_64)
+  depends=(lib32-glibc ocl-icd-amdgpu-pro=${major}_${minor}-${pkgrel})
+  optdepends=('lib32-opencl-driver: packaged opencl driver')
+  conflicts=(lib32-libcl lib32-ocl-icd lib32-ocl-icd-git lib32-khronos-ocl-icd-git lib32-ocl-icd-amdgpu-pro-21.20)
+  replaces=(lib32-libcl)
+  provides=(lib32-opencl-icd-loader lib32-ocl-icd lib32-ocl-icd-amdgpu-pro)
+
+  extract_deb "${srcdir}"/ocl-icd-libopencl1-amdgpu-pro_${major_short}-${minor}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/ocl-icd-libopencl1-amdgpu-pro-dev_${major_short}-${minor}.${ubuntu_ver}_i386.deb
+  move_libdir "opt/amdgpu-pro/lib/i386-linux-gnu" "usr/lib32"
+  move_copyright
+
+  sed -i "s#prefix=/opt/amdgpu-pro#prefix=/usr#g" "${pkgdir}"/usr/lib32/pkgconfig/OpenCL.pc
+  sed -i "s#libdir=\${prefix}/lib/i386-linux-gnu#libdir=\${exec_prefix}/lib32#g" "${pkgdir}"/usr/lib32/pkgconfig/OpenCL.pc
+  sed -i "s#L/opt/amdgpu-pro/lib/i386-linux-gnu#L\${libdir}#g" "${pkgdir}"/usr/lib32/pkgconfig/OpenCL.pc
+  sed -i "s#-I/opt/amdgpu-pro/include#-I\${includedir}#g" "${pkgdir}"/usr/lib32/pkgconfig/OpenCL.pc
+}
+
+sha256sums=('8f4ea2cbb5cc35d07904cfa64536ccde61400aff3d72b11217f4a188ef8bc9f0'
+            '9ded5bd54f3a4062f013f8547c8829963cd2ca17fd0fd43cab3fff33d28dab02'
+            '6f0f780fb2c280fb885e2c35a4833ac513fe7aca1265dbc7f088b352e191a87f'
+            '025fe59f17398eb81e89277c78eeee2bdda2091a7b1cfba47dd7bb2e4fb02688')
