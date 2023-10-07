@@ -16,12 +16,12 @@
 #https://github.com/Ashark/archlinux-amdgpu-pro
 #https://repo.radeon.com/amdgpu
 
-major=23.10
-major_short=23.10
-minor=1595145
+major=23.20
+major_short=23.20
+minor=1654521
 ubuntu_ver=22.04
-repo_folder_ver=5.5.1
-amf_version=1.4.30
+repo_folder_ver=5.7
+amf_version=1.4.31
 liba_version=1.0
 
 pkgbase=vulkan-amdgpu-pro
