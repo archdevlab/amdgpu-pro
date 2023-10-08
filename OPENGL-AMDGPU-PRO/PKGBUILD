@@ -1,11 +1,4 @@
-# _     _            _        _          _____
-#| |__ | | __ _  ___| | _____| | ___   _|___ /
-#| '_ \| |/ _` |/ __| |/ / __| |/ / | | | |_ \
-#| |_) | | (_| | (__|   <\__ \   <| |_| |___) |
-#|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
-#                                  |___/
-
-#Maintainer: blacksky3 <https://github.com/blacksky3>
+#Maintainer: archdevlab <https://github.com/archdevlab>
 #Credits: Janusz Lewandowski <lew21@xtreeme.org>
 #Credits: David McFarland <corngood@gmail.com>
 #Credits: Andrew Shark <ashark @at@ linuxcomp.ru>
@@ -16,11 +9,11 @@
 #https://github.com/Ashark/archlinux-amdgpu-pro
 #https://repo.radeon.com/amdgpu
 
-major=23.10
-major_short=23.10
-minor=1595145
+major=23.20
+major_short=23.20
+minor=1654522
 ubuntu_ver=22.04
-repo_folder_ver=5.5.1
+repo_folder_ver=5.7
 
 pkgbase=opengl-amdgpu-pro
 pkgname=(opengl-amdgpu-pro lib32-opengl-amdgpu-pro)
@@ -146,15 +139,15 @@ package_lib32-opengl-amdgpu-pro(){
 
 sha256sums=('feb74796c3152cbafaba89d96e68a152f209bd3058c7eb0413cbe1ab0764e96f'
             'e32801c38b475cd8df17a407726b86db3de26410f563d688325b4d4314fc5354'
-            '8961a5a19a5b8c84d54df6be125f494fe238aa28267ff1778c9e4e5384281182'
-            '3533c597e6e16d3e2d25726c51f1bad1b7ee8f083e72b13b6365ba0807f44a6c'
-            'd633fb5c54956a8247cffe9f69f9ad57fa2aaaf4c273f8b1fdca4717ea2c41c4'
-            'e694fdd17c0abf6aa4bd11737d97eab0792c611fcab3a283dc9740ca18fdc725'
-            '61def861b132d76d5a9ac43c3f13a39d0206a3f409ccd450c4788351ef5c9777'
-            '13e4f5f77fbf43a9dd1c0ab595ff233ecc45299ff4489c10fd70498e0555058b'
-            '114a225282cf6f7e2a1d0ab84f716ca6a93dac6c2cc186cd3f61aa32a5061af0'
-            '5ba1faceb840ccc0cd235e01efc54b984028520083ba41ef0a4392acb56da81e'
-            'ab3f9016b66940f6cc04544da8c576ca2d5d7482da570637b40c0a0d0be1365e'
-            '9c0b42db7a0cd0372cf7ca43b1ddfa75d0a0b9584d7ea22c964bd3a2f1b3182d'
-            '5cb48db10863235c56313bc18a0867d8ee1ca04d46b5ff072c8fdbca586eb395'
-            '4754d1663625fd93d1dafb88c5ecd2b22bc3a818cdfbeec865c4e61c3bc750e5')
+            '6b142ad1319141660e73305a13c866a7924064681263dcc8424fd402f3b8f830'
+            '49794cfd3d2b1226365b19882da4237626da7fe7157b51b560f83b5eb75b2a52'
+            'be25a5fe4efeb91066ec345613e373193b7cd3db22201045f34cbd1d7f47b2ba'
+            '54754f38b1f6306d4863439263c1b09ca183c948ddce63230d0b83636ec45d05'
+            '57244d45f35d89823b2fe3c55386d8dd3233478802f9e6359be460cb5d6a8239'
+            'd659cedd625b6c16ee3d26c7f825aa1769243e43b666afd73214bbcb3429a485'
+            'f774d763a53fcfec605214c4058a653d26c6fb479457260a0781aee8af9b8708'
+            '010bb70ef8353fbb12a614857e8b4778de3150b6c18ddff5e270d03029eb47e6'
+            '8b1a6066d8a8d0a08ff5abf1998be223caa24cb5f1203185d85a93ba8e727fef'
+            'b96b60631c11aea3a0b599fdbedcc9ad77db3161cf071daeccb763db2807a0e7'
+            'c5e6aec8fd970dbc2bdcd5504abc3db3ef8bdaa9666b66542151e30d83cccd3a'
+            '282117b91ff682b4a0a04e448aaa6d371f6c0f9f15efa0d1378c6af007df55c9')

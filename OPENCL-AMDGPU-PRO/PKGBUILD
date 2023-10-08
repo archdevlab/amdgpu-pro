@@ -1,21 +1,14 @@
-# _     _            _        _          _____
-#| |__ | | __ _  ___| | _____| | ___   _|___ /
-#| '_ \| |/ _` |/ __| |/ / __| |/ / | | | |_ \
-#| |_) | | (_| | (__|   <\__ \   <| |_| |___) |
-#|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
-#                                  |___/
-
-#Maintainer: blacksky3 <https://github.com/blacksky3>
+#Maintainer: archdevlab <https://github.com/archdevlab>
 
 #Upstream pages
 #https://aur.archlinux.org/packages/opencl-legacy-amdgpu-pro
 #https://repo.radeon.com/amdgpu
 
-major=23.10
-major_short=23.10
-minor=1595145
+major=23.20
+major_short=23.20
+minor=1654522
 ubuntu_ver=22.04
-repo_folder_ver=5.5.1
+repo_folder_ver=5.7
 
 pkgbase=opencl-amdgpu-pro
 pkgname=(opencl-amdgpu-pro lib32-opencl-amdgpu-pro)
@@ -91,5 +84,5 @@ package_lib32-opencl-amdgpu-pro(){
   ln -s /usr/lib32/libamdocl-orca32.so ${pkgdir}/usr/lib32/libamdocl-orca.so
 }
 
-sha256sums=('6067a00d5870523f243db923e6225db1c31e09232b21f9e07ebfeaa5c462423b'
-            '77b6e73bf3470184a152fde6054a67d3d4a5b1bd50fa643f3a3f447b2eb6c28d')
+sha256sums=('bace2ef86be1dc823894e242e5077a70898062cc5b4db40962c19ca5bb6cf234'
+            'b643a9ecbb8bea839fbcf4c02bf77e1250a878968ea0c9a47a045e46ea26a222')

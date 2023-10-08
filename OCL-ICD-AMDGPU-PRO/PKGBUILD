@@ -1,20 +1,13 @@
-# _     _            _        _          _____
-#| |__ | | __ _  ___| | _____| | ___   _|___ /
-#| '_ \| |/ _` |/ __| |/ / __| |/ / | | | |_ \
-#| |_) | | (_| | (__|   <\__ \   <| |_| |___) |
-#|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
-#                                  |___/
-
-#Maintainer: blacksky3 <https://github.com/blacksky3>
+#Maintainer: archdevlab <https://github.com/archdevlab>
 
 #Upstream pages
 #https://repo.radeon.com/amdgpu
 
-major=23.10
-major_short=23.10
-minor=1595145
+major=23.20
+major_short=23.20
+minor=1654522
 ubuntu_ver=22.04
-repo_folder_ver=5.5.1
+repo_folder_ver=5.7
 
 pkgbase=ocl-icd-amdgpu-pro
 pkgname=(ocl-icd-amdgpu-pro lib32-ocl-icd-amdgpu-pro)
@@ -98,7 +91,7 @@ package_lib32-ocl-icd-amdgpu-pro(){
   sed -i "s#-I/opt/amdgpu-pro/include#-I\${includedir}#g" "${pkgdir}"/usr/lib32/pkgconfig/OpenCL.pc
 }
 
-sha256sums=('8f4ea2cbb5cc35d07904cfa64536ccde61400aff3d72b11217f4a188ef8bc9f0'
-            '9ded5bd54f3a4062f013f8547c8829963cd2ca17fd0fd43cab3fff33d28dab02'
-            '6f0f780fb2c280fb885e2c35a4833ac513fe7aca1265dbc7f088b352e191a87f'
-            '025fe59f17398eb81e89277c78eeee2bdda2091a7b1cfba47dd7bb2e4fb02688')
+sha256sums=('8377548e754548d859163824a10257a101612bb744ddb551f5241486145aa298'
+            'c5da97d5a3b50fc32745cb880f5244c54fd69f9572b7d43f6ede1178224a4d5f'
+            '7c9186d7ef0526684104c1df07f143bb797b7c0c1a6ab7f49b07c63746fe0bdc'
+            '859c827b5b684407e7d234cef18e5c7ab8bad3068c7a29e8a0f88c8ae312f679')
