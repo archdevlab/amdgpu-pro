@@ -18,7 +18,7 @@
 
 major=23.20
 major_short=23.20
-minor=1654521
+minor=1654522
 ubuntu_ver=22.04
 repo_folder_ver=5.7
 amf_version=1.4.31
@@ -118,7 +118,7 @@ package_lib32-vulkan-amdgpu-pro(){
   find ${pkgdir} -type d -empty -delete
 }
 
-sha256sums=('f1825098d8ea4efa3999094761ae5e26005eebfc3481011f4723f1cfb514b89f'
-            'c0101de4551d50e1874a25f3130843dc2d01fd5e007b4be4db4468c66a66f605'
-            '7e3dab457a37bade8306038c8f126ddd3438d31e5eb44bc5566ab41e7291870f'
-            '3af060309f6da74b901a6adc4acc622bc73d36b6086fc77f7d69872a6229ac52')
+sha256sums=('6486b32a80f9243996b24917ac7cb8a6cea78f280ca94604d96b28c530e82aa2'
+            '6c1a74a635b2de70850cc831638cc63176a8abb5d6811d23888a367432fa2b63'
+            '66cdd60fe04da5b6efcdd628b6c8c63584963f053c22aa1df8959a2ff5d77c3f'
+            '6b2ae59acc61319ae6ec5fc68534324dc9ed8bfe6a70812bd2945a37f3e0d905')
