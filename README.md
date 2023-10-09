@@ -21,6 +21,12 @@ Based on the work by Ashark: https://github.com/Ashark/archlinux-amdgpu-pro
 - AMD Radeon™ R9 360/380/380X/390/390X Graphics​
 - AMD Radeon™ R9 285/290/290X Graphics
 
+## OPENCL
+
+Packages support products older than Vega 10
+
+For product Vega 10 and later products
+
 ### Prebuild package
 
 Prebuild package are available at https://repo.archdevlab.org/x86_64/amdgpu-pro
