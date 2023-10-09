@@ -57,6 +57,35 @@ AMD Radeon Pro™ W6600       |      RDNA2          |    gfx1032
 AMD Radeon Pro™ W5500       |      RDNA1          |    gfx1012
 AMD Radeon Pro™ VII         |      GCN5.1         |    gfx906
 
+## Profile
+
+To switch the defualt driver for Vulkan and OpenGL you can use this script in /etc/profile.d/
+
+    #!/usr/bin/bash
+
+    ICD_DIR="/usr/share/vulkan/icd.d"
+
+    AMDGPUPROGL64_DIR="/usr/lib/amdgpu-pro"
+
+    AMDGPUPROGL32_DIR="/usr/lib32/amdgpu-pro"
+
+    # RADV
+    #export VK_ICD_FILENAMES="${ICD_DIR}/radeon_icd.i686.json:${ICD_DIR}/radeon_icd.x86_64.json"
+
+    # AMDVLK
+    #export VK_ICD_FILENAMES="${ICD_DIR}/amd_icd32.json:${ICD_DIR}/amd_icd64.json"
+
+    # AMDGPU-PRO
+    #export VK_ICD_FILENAMES="${ICD_DIR}/amd_pro_icd32.json:${ICD_DIR}/amd_pro_icd64.json"
+
+    # Use AMDGPU-PRO OpenGL
+
+    #export LD_LIBRARY_PATH="${AMDGPUPROGL64_DIR}/:${LD_LIBRARY_PATH}:${AMDGPUPROGL32_DIR}/:${LD_LIBRARY_PATH}"
+
+    # Use Mesa OpenGL
+
+    #export LD_LIBRARY_PATH="/usr/lib/:${LD_LIBRARY_PATH}:/usr/lib32/:${LD_LIBRARY_PATH}"
+
 ### Prebuild package
 
 Prebuild package are available at https://repo.archdevlab.org/x86_64/amdgpu-pro
