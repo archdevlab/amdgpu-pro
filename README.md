@@ -29,12 +29,6 @@ AMD Radeon™ R9 285/290/290X Graphics                                  |       
 
 For these models of GPUs use the ROCm OpenCL stack https://github.com/archdevlab/rocm.git. Older then that use opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages provided by this repo (https://repo.radeon.com/amdgpu/latest/ubuntu/pool/proprietary/o/opencl-legacy-amdgpu-pro/).
 
-https://rocmdocs.amd.com/en/latest/release/windows_support.html#windows-supported-gpus
-
-Legacy OpenCL stack (Proprietary), supports legacy products older than Vega 10 (this repo opencl-amdgpu-pro and lib32-opencl-amdgpu-pro).
-
-ROCm OpenCL stack, supports Vega 10 and later products.
-
 Name                        |     Architecture    |    LLVM Target
 ------                      |       ------        |     ------
 AMD Radeon™ RX 7900 XTX     |      RDNA3          |    gfx1100
@@ -56,6 +50,12 @@ AMD Radeon Pro™ W6800       |      RDNA2          |    gfx1030
 AMD Radeon Pro™ W6600       |      RDNA2          |    gfx1032
 AMD Radeon Pro™ W5500       |      RDNA1          |    gfx1012
 AMD Radeon Pro™ VII         |      GCN5.1         |    gfx906
+
+https://rocmdocs.amd.com/en/latest/release/windows_support.html#windows-supported-gpus
+
+Legacy OpenCL stack (Proprietary), supports legacy products older than Vega 10 (this repo opencl-amdgpu-pro and lib32-opencl-amdgpu-pro).
+
+ROCm OpenCL stack, supports Vega 10 and later products.
 
 ## Profile
 
