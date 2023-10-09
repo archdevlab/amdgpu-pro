@@ -28,6 +28,17 @@ Name                        |     Architecture    |    LLVM Target
 ------                      |       ------        |     ------
 AMD Radeon™ RX 7900 XTX     |      RDNA3          |    gfx1100
 AMD Radeon™ RX 7900 XT      |      RDNA3          |    gfx1100
+AMD Radeon™ RX 7600         |      RDNA3          |    gfx1102
+AMD Radeon™ RX 7600         |      RDNA2          |    gfx1030
+AMD Radeon™ RX 7600         |      RDNA2          |    gfx1030
+AMD Radeon™ RX 6800 XT      |      RDNA2          |    gfx1030
+AMD Radeon™ RX 6800         |      RDNA2          |    gfx1030
+AMD Radeon™ RX 6750         |      RDNA2          |    gfx1032
+AMD Radeon™ RX 6700 XT      |      RDNA2          |    gfx1032
+AMD Radeon™ RX 6700         |      RDNA2          |    gfx1032
+AMD Radeon™ RX 6650 XT      |      RDNA2          |    gfx1032
+AMD Radeon™ RX 6600 XT      |      RDNA2          |    gfx1032
+AMD Radeon™ RX 6600         |      RDNA2          |    gfx1032
 
 ### Prebuild package
 
