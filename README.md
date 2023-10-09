@@ -24,6 +24,7 @@ Based on the work by Ashark: https://github.com/Ashark/archlinux-amdgpu-pro
 ## OPENCL
 
 For these models of GPU use the ROCm opencl stack. Older then that use opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages
+
 Name                        |     Architecture    |    LLVM Target
 ------                      |       ------        |     ------
 AMD Radeon™ RX 7900 XTX     |      RDNA3          |    gfx1100
@@ -39,6 +40,12 @@ AMD Radeon™ RX 6700         |      RDNA2          |    gfx1032
 AMD Radeon™ RX 6650 XT      |      RDNA2          |    gfx1032
 AMD Radeon™ RX 6600 XT      |      RDNA2          |    gfx1032
 AMD Radeon™ RX 6600         |      RDNA2          |    gfx1032
+AMD Radeon Pro™ W7900       |      RDNA3          |    gfx1100
+AMD Radeon Pro™ W7800       |      RDNA3          |    gfx1100
+AMD Radeon Pro™ W6800       |      RDNA2          |    gfx1030
+AMD Radeon Pro™ W6600       |      RDNA2          |    gfx1032
+AMD Radeon Pro™ W5500       |      RDNA1          |    gfx1012
+AMD Radeon Pro™ VII         |      GCN5.1         |    gfx906
 
 ### Prebuild package
 
