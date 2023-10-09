@@ -8,6 +8,8 @@ Based on the work by Ashark: https://github.com/Ashark/archlinux-amdgpu-pro
 
 ## Supported Cards
 
+https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-23-20
+
 AMD Product Family Compatibility                                      |                                                          |                                                    
 -----                                                                 |         -----                                            |
 AMD Radeon™ RX 7900/7800/7700/7600 Series Graphics                    |  AMD Radeon™ Pro W7500 / W7600                           |
