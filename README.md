@@ -9,7 +9,7 @@ Based on the work by Ashark: https://github.com/Ashark/archlinux-amdgpu-pro
 ## Supported Cards
 
 AMD Product Family Compatibility                                                                                            |                                                    
------
+-----                                                                                                                       |
 AMD Radeon™ RX 7900/7800/7700/7600 Series Graphics                  AMD Radeon™ Pro W7500 / W7600                           |
 AMD Radeon™ RX 6900/6800/6700/6600/6500/6400/6300 Series Graphics   AMD Radeon™ Pro WX 9100 / 8200                          |
 AMD Radeon™ RX 5700/5600/5500/5300 Series Graphics                  AMD FirePro™ W9100 / W8100 / W7100 / W5100 / W4300      |
