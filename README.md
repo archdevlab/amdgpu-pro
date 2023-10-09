@@ -29,6 +29,8 @@ AMD Radeon™ R9 285/290/290X Graphics                                  |       
 
 For these models of GPU use the ROCm opencl stack. Older then that use opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages provided by this repo
 
+https://rocmdocs.amd.com/en/latest/release/windows_support.html#windows-supported-gpus
+
 Name                        |     Architecture    |    LLVM Target
 ------                      |       ------        |     ------
 AMD Radeon™ RX 7900 XTX     |      RDNA3          |    gfx1100
