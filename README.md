@@ -23,9 +23,9 @@ Based on the work by Ashark: https://github.com/Ashark/archlinux-amdgpu-pro
 
 ## OPENCL
 
-Packages support products older than Vega 10
+opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages support products older than Vega 10
 
-For product Vega 10 and later products
+For Vega 10 and later products use the ROCm opencl stack
 
 ### Prebuild package
 
