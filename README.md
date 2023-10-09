@@ -86,6 +86,8 @@ To switch the defualt driver for Vulkan and OpenGL you can use this script in /e
 
     #export LD_LIBRARY_PATH="/usr/lib/:${LD_LIBRARY_PATH}:/usr/lib32/:${LD_LIBRARY_PATH}"
 
+Note that Steam can complain when using AMDGPU-PRO OpenGL by default, so you can swith your default driver in launch option.
+
 ### Prebuild package
 
 Prebuild package are available at https://repo.archdevlab.org/x86_64/amdgpu-pro
