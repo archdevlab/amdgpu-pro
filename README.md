@@ -1,6 +1,6 @@
 # AMDGPU-PRO
 
-AMDGPU-PRO driver packaged for Archlinux. Include Vulkan, OPENGL and OPENCL drivers
+AMDGPU-PRO driver packaged for Archlinux. Include Vulkan, OpenGL and OpenCL drivers
 
 Contains .deb packages for Ubuntu repackaged for Archlinux. Packages comes from the Radeon repo: http://repo.radeon.com/amdgpu/ 
 
@@ -25,7 +25,7 @@ AMD Radeon™ R9 Fury/Fury X/Nano Graphics                              |       
 AMD Radeon™ R9 360/380/380X/390/390X Graphics​                         |                                                          |
 AMD Radeon™ R9 285/290/290X Graphics                                  |                                                          |
 
-## OPENCL
+## OpenCL
 
 For these models of GPU use the ROCm opencl stack. Older then that use opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages
 
