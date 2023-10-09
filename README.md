@@ -27,7 +27,7 @@ AMD Radeon™ R9 285/290/290X Graphics                                  |       
 
 ## OpenCL
 
-For these models of GPUS use the ROCm opencl stack https://repo.radeon.com/rocm/apt/. Older then that use opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages provided by this repo (https://repo.radeon.com/amdgpu/latest/ubuntu/pool/proprietary/o/opencl-legacy-amdgpu-pro/).
+For these models of GPUS use the ROCm opencl stack https://github.com/archdevlab/rocm.git. Older then that use opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages provided by this repo (https://repo.radeon.com/amdgpu/latest/ubuntu/pool/proprietary/o/opencl-legacy-amdgpu-pro/).
 
 https://rocmdocs.amd.com/en/latest/release/windows_support.html#windows-supported-gpus
 
