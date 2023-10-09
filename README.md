@@ -23,9 +23,11 @@ Based on the work by Ashark: https://github.com/Ashark/archlinux-amdgpu-pro
 
 ## OPENCL
 
-opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages support products older than Vega 10
-
-For Vega 10 and later products use the ROCm opencl stack
+For these models of GPU use the ROCm opencl stack. Older then that use opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages
+Name                |     Architecture    |    LLVM Target
+------              |        ------       |       ------
+AMD Radeon™ RX 7900 XTX    RDNA3         gfx1100
+AMD Radeon™ RX 7900 XT     RDNA3         gfx1100
 
 ### Prebuild package
 
