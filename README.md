@@ -1,6 +1,6 @@
 # AMDGPU-PRO
 
-AMDGPU-PRO driver packaged for Archlinux. Include Vulkan, OpenGL and OpenCL drivers
+AMDGPU-PRO driver packaged for Archlinux. Include Vulkan, OpenGL and OpenCL drivers.
 
 Contains .deb packages for Ubuntu repackaged for Archlinux. Packages comes from the Radeon repo: http://repo.radeon.com/amdgpu/ 
 
