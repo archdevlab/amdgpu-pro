@@ -27,13 +27,13 @@ AMD Radeon™ R9 285/290/290X Graphics                                  |       
 
 ## OpenCL
 
-For these models of GPUS use the ROCm opencl stack. Older then that use opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages provided by this repo
+For these models of GPUS use the ROCm opencl stack. Older then that use opencl-amdgpu-pro and lib32-opencl-amdgpu-pro packages provided by this repo.
 
 https://rocmdocs.amd.com/en/latest/release/windows_support.html#windows-supported-gpus
 
-Legacy OpenCL stack (Proprietary), supports legacy products older than Vega 10 (this repo opencl-amdgpu-pro and lib32-opencl-amdgpu-pro)
+Legacy OpenCL stack (Proprietary), supports legacy products older than Vega 10 (this repo opencl-amdgpu-pro and lib32-opencl-amdgpu-pro).
 
-ROCr OpenCL stack, supports Vega 10 and later products
+ROCr OpenCL stack, supports Vega 10 and later products.
 
 Name                        |     Architecture    |    LLVM Target
 ------                      |       ------        |     ------
