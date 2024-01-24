@@ -8,25 +8,24 @@
 #https://github.com/Ashark/archlinux-amdgpu-pro
 #https://repo.radeon.com/amdgpu
 
-major=23.20
-major_short=23.20
-minor=1654522
+major=23.40
+minor=1710631
 ubuntu_ver=22.04
-repo_folder_ver=5.7
-amf_version=1.4.31
+repo_folder_ver=6.0.1
+amf_version=1.4.33
 liba_version=1.0
 
 pkgbase=vulkan-amdgpu-pro
 pkgname=(amf-amdgpu-pro vulkan-amdgpu-pro lib32-vulkan-amdgpu-pro)
-pkgver=${major}_${minor}
+pkgver=6.0.1
 pkgrel=1
 arch=(x86_64)
 url='https://repo.radeon.com/amdgpu'
 license=(custom: multiple)
 source=(https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/a/amf-amdgpu-pro/amf-amdgpu-pro_${amf_version}-${minor}.${ubuntu_ver}_amd64.deb
         https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/liba/libamdenc-amdgpu-pro/libamdenc-amdgpu-pro_${liba_version}-${minor}.${ubuntu_ver}_amd64.deb
-        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_${major_short}-${minor}.${ubuntu_ver}_i386.deb
-        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_${major_short}-${minor}.${ubuntu_ver}_amd64.deb)
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_${major}-${minor}.${ubuntu_ver}_i386.deb
+        https://repo.radeon.com/amdgpu/${repo_folder_ver}/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_${major}-${minor}.${ubuntu_ver}_amd64.deb)
 
 extract_deb(){
   local tmpdir="$(basename "${1%.deb}")"
@@ -78,7 +77,7 @@ package_vulkan-amdgpu-pro(){
   optdepends=('openssl: Warning unspecified optdep description')
   conflicts=(vulkan-amdgpu-pro-21.20)
 
-  extract_deb "${srcdir}"/vulkan-amdgpu-pro_${major_short}-${minor}.${ubuntu_ver}_amd64.deb
+  extract_deb "${srcdir}"/vulkan-amdgpu-pro_${major}-${minor}.${ubuntu_ver}_amd64.deb
   move_libdir "opt/amdgpu-pro/lib/x86_64-linux-gnu" "usr/lib"
   move_copyright
 
@@ -98,7 +97,7 @@ package_lib32-vulkan-amdgpu-pro(){
   optdepends=('lib32-openssl: Warning unspecified optdep description')
   conflicts=(lib32-vulkan-amdgpu-pro-21.20)
 
-  extract_deb "${srcdir}"/vulkan-amdgpu-pro_${major_short}-${minor}.${ubuntu_ver}_i386.deb
+  extract_deb "${srcdir}"/vulkan-amdgpu-pro_${major}-${minor}.${ubuntu_ver}_i386.deb
   move_libdir "opt/amdgpu-pro/lib/i386-linux-gnu" "usr/lib32"
   move_copyright
 
@@ -110,7 +109,7 @@ package_lib32-vulkan-amdgpu-pro(){
   find ${pkgdir} -type d -empty -delete
 }
 
-sha256sums=('6486b32a80f9243996b24917ac7cb8a6cea78f280ca94604d96b28c530e82aa2'
-            '6c1a74a635b2de70850cc831638cc63176a8abb5d6811d23888a367432fa2b63'
-            '66cdd60fe04da5b6efcdd628b6c8c63584963f053c22aa1df8959a2ff5d77c3f'
-            '6b2ae59acc61319ae6ec5fc68534324dc9ed8bfe6a70812bd2945a37f3e0d905')
+sha256sums=('b1d0c6770087a346253a2ef682c36e63adc9e0142e214cdbe948c7646cd69a09'
+            '547e314b9896b323b3f0324b07035af8f3d4945bd0e87433fe23fd91a41a8e5f'
+            'c9bb91690a3e0da9b0de4127be0d876040ac3eab4c8c8eccae5c3bfcc60bd3ff'
+            '30705b6bb9b00b760eba4459488e865d525cfee7d768f269e913c1463b5f54a5')
