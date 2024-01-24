@@ -108,7 +108,7 @@ package_lib32-opengl-amdgpu-pro(){
   arch=(i686 x86_64)
   license=(custom: AMDGPU-PRO EULA)
   provides=(lib32-opengl-driver lib32-libegl lib32-libgl lib32-libgles)
-  depends=(opengl-amdgpu-pro=${major}_${minor}-${pkgrel} lib32-libdrm lib32-libx11 lib32-libxcb lib32-libxdamage lib32-libxext lib32-libxfixes lib32-libxxf86vm)
+  depends=(opengl-amdgpu-pro=${pkgver} lib32-libdrm lib32-libx11 lib32-libxcb lib32-libxdamage lib32-libxext lib32-libxfixes lib32-libxxf86vm)
   conflicts=(lib32-opengl-amdgpu-pro-21.20)
   backup=(etc/amd/amdrc etc/ld.so.conf.d/10-amdgpu-pro-i386.conf)
 
