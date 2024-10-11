@@ -8,16 +8,16 @@
 #https://github.com/Ashark/archlinux-amdgpu-pro
 #https://repo.radeon.com/amdgpu
 
-major=24.10
-minor=1787253
+major=24.20
+minor=2044449
 ubuntu_ver=22.04
-repo_folder_ver=6.1.3
-amf_version=1.4.34
+repo_folder_ver=6.2.3
+amf_version=1.4.35
 liba_version=1.0
 
 pkgbase=vulkan-amdgpu-pro
 pkgname=(amf-amdgpu-pro vulkan-amdgpu-pro lib32-vulkan-amdgpu-pro)
-pkgver=6.1.3
+pkgver=6.2.3
 pkgrel=1
 arch=(x86_64)
 url='https://repo.radeon.com/amdgpu'
@@ -109,7 +109,7 @@ package_lib32-vulkan-amdgpu-pro(){
   find ${pkgdir} -type d -empty -delete
 }
 
-sha256sums=('e6c308d24b6a4034eee7138a3fd4fdbe3692207422cc5d701e1a897159d8e347'
-            '45291643783efae295ae4e49f51f1603aa8bd1ff81db3f3f9a57e543f71065c8'
-            '11d2da8381c21bf48977d27298751a44ba22dbd581c7afe1376747a38b44b140'
-            'c5a619537aebfebad77bfc55a1ba2fc451c56de8407e54f937250d5639256e5a')
+sha256sums=('30c16bc4f83cbe376b853c1c130c0ba033008a87aaed8b53133043801cb838f0'
+            '376b7443426b899dcc62994ac7937c10b7f91cb1d9659dedbc926d9f267b607d'
+            'f4a1c905417de7261f56610307b2d3e5cb4c97719b0e16f2c39b8c9af30b3293'
+            'fcf34f8a92773d8fe0ef0f2198d1a6d289a1393cbe585c788768728a8ac498ad')
